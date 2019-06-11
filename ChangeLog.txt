@@ -1,0 +1,117 @@
+Change Log:
+Version 0.42 - 06/06/2019
+  -Menus
+    -Funcioning menu
+      -click to change character color
+      -clickable ReadyButton. when all buttons have been toggled to ready, game moves into main phase
+  -Character
+    -now has spawn method to be used when switching from menu to main game (prevents characters from just falling from menu position)
+  -Game Panel
+    -loads menus
+    -has a nextGameState method to transition between game phases
+  -Misc
+    -game has minor lag issue. commiting so I can branch off and try to fix it. :)
+Version 0.41 - 05/30/19 
+  -Performance
+    -Objects are now removed from game loop when deactivated
+  -Mouse Tracking
+    -Changed mouse position to be tracked relative to the games panel and not the desktop
+  -Pickups
+    -Changed pickUp method to return a boolean representing whether picking up item was successful or not
+      -this was to prevent false ownership (see Gun)
+    -Gun
+      -Gun no longer belongs to a player despite being thrown (players were able to shoot when gun was discarded)
+  -Linux Smoothing
+    -Added smoothing to prevent stuttering for Linux systems (probably, don't have a linux system to test on).
+  -Misc
+    -All GameObjects now take GamePanel as a parameter. This was initiallly to allow for proper aim of guns, but functionality will extend over time
+    -Added some javadocs for methods
+  -WIP Stuff
+    -Menus
+      -Clickable interface
+      -Integer Game State to switch from menus to main game etc
+      -MenuItem interface
+Version 0.4 - 04/10/2019
+  -Gun
+    -Automatic fire
+      -Gun can now be fired continuously by holding down the shoot button
+      -There is now a fire rate (a delay between each shot)
+    -Magazines
+      -Guns now have a fixed number of bullets they can fire before having to reload
+      -Reload
+        -Guns now reload automatically after magazine is emptied, refilling magazine after x period of time
+  -Status Bar
+    -Added Status Bar class to be extended to create bars that can indicate data of the character
+    -Health Bar
+      -Red rectangle displayed above character that shrinks as char health decreases.
+    -Reload Bar
+      -A white bar is drawn below the character that shrinks as the gun reloads
+
+  -Bug Fixes
+    -players can no longer steal held guns from other players
+    -for each loop that ran update() on all gameObjects is now a for loop to allow for rapid adding of objects
+    -Game automatically set to full screen (with toolbar on top) so the game panel is no longer cut off
+
+Version 0.3 - 04/02/2019
+  -Platforms ArrayList is now dead. Redesigned collision checks to use GameObject arrayList pieces, for easier future design
+  -Character
+    -Characters now have int IDs, to prevent unwanted collisions
+      - For example, if Char1, with ID 1 fires a bullet, it will only collide with/do damage to characters w/o ID 1
+    -Characters now have health
+      -100 health
+      -active is set to false if health <= 0 (meaning the game will no longer call update or draw on the character)
+  -Bullet
+    -Now fed ID of shooting character
+    -Does 10 damage to characters on collision, then deactivates
+Version 0.25 - 04/02/2019
+-TWO PLAYERS, because everything is better with friends
+  -Two players, with distinguishing colors and unique (terribly designed) controls
+  -Objects implementing PickUp now take a Character parameter in the pickUp method, so all character can 
+   pickUp things, rather than just send it to player 1
+    -Note: Gun is currently initialized with Character1. This doesn't impact functionality, but seems sloppy. Needs redesigning
+
+Version 0.21 - 03/29/2019
+ -Moved code into src folder, because organization
+ 
+Version 0.2 - 03/29/2019
+-Bullet
+  -Added bullet class. Bullets:
+    -fire toward mousepointer
+    -bounce off of platforms and screen edges
+    -disappear after X collisions
+-Character
+  -Pickups
+    -added support for picking up pickup-able items (including an arrayList of pickups, constructor parameter)
+    -can also throw/drop held object
+  -Other
+    -changed platform loop to for each loop
+-GameObject
+  -Added active state (boolean), set false to destroy objects
+  -Collision
+    -changed top collision to work more smoothly
+    -added side collision (may only work for things shorter than the height of the platform)
+  -Added getCenterX and getCenterY methods to make life easier (not all uses of center points have been converted to use this method)
+-GamePanel
+  -Added ArrayList of pickUp objects, for running collisions
+  -Extracted platform dimensions (excluding floor) to local variables for ease
+  -Added multiple platforms (not lag inducing)
+  -Added Gun object
+  -New actions "fire" and "drop" for bullets and pickUp items repsectively
+  -No longer calls update() or draw() if object not active
+-Gun
+  -Added Gun class
+    -implements pickUp interface
+    -spawns bullet objects from tip
+    -points in one of three directions, left, right, and up, depending on the angle btwn the cursor and the character's center
+    -has physics when thrown
+-Pickup
+  -Added PickUp interface
+    -forces pickUp() method
+
+Version 0.1 - 03/25/2019
+-Added game loopy things so game games
+-Added basic movement and physics
+-Added basic collision with singular base platform
+-Added movable character
+-Added base platform
+ -- (theoretically with multiple, may be lag inducing)
