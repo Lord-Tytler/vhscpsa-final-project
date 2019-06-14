@@ -10,6 +10,7 @@ public class GameRunner  {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.add(gamePanel);
         frame.setSize(width, height);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);  //sets game to launch in full screen, because jframe is strange and cuts off
         frame.setVisible(true);
     }
 }
